@@ -13,6 +13,9 @@ Gem::Specification.new do |s|
 
   s.rubyforge_project = "barback"
 
+  s.add_dependency("activeresource", ">= 3.0")
+  s.add_dependency("activerecord", ">= 3.0")
+
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }

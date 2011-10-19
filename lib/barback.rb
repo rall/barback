@@ -114,4 +114,3 @@ end
 class ActiveResource::Base
   include Barback
 end
-
