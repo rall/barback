@@ -106,3 +106,12 @@ module Barback
     end
   end
 end
+
+class ActiveRecord::Base
+  include Barback
+end
+
+class ActiveResource::Base
+  include Barback
+end
+
