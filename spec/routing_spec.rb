@@ -1,23 +1,5 @@
 require 'spec_helper'
 
-module Testing
-  class Application < Rails::Application; end
-end
-
-class Widget
-  include Barback
-  attr_accessor :to_param, :id
-  def self.include_root_in_json?; true; end
-  def handlebars_methods; [:to_param, :id]; end
-end
-
-class Gadget
-  include Barback
-  attr_accessor :to_param, :id
-  def self.include_root_in_json?; true; end
-  def handlebars_methods; [:to_param]; end
-end
-
 describe "generating urls for handlebars" do
   let(:widget) { Widget.handlebars_object }
   let(:gadget) { Gadget.handlebars_object("gadget") }
