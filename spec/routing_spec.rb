@@ -64,8 +64,12 @@ describe "generating urls for handlebars" do
       app.gadget_widget_path(gadget, widget).should == "/gadgets/{{gadget.to_param}}/widgets/{{to_param}}"
     end
 
-    it "should return the path with a query string" do
+    it "should return the path with a handlebars query string" do
       app.gadget_path(real_gadget, :widget => widget).should == "/gadgets/some_gadget_id?widget={{to_param}}"
+    end
+
+    it "should return the handlebars path with a query string" do
+      app.widget_path(widget, :value => 1).should == "/widgets/{{to_param}}?value=1"
     end
   end
 end
