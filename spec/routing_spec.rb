@@ -56,16 +56,16 @@ describe "generating urls for handlebars" do
       app.gadget_widget_path(real_gadget, widget).should == "/gadgets/some_gadget_id/widgets/{{to_param}}"
     end
 
-    xit "should return the path with a query string" do
-      app.gadget_path(real_gadget, :widget_id => widget.id).should == "/gadgets/some_gadget_id?widget_id={{id}}"
-    end
-
     it "should return the path for a nested route when a container" do
       app.widget_gadgets_path(widget).should == "/widgets/{{to_param}}/gadgets"
     end
 
     it "should nest two templates in a path" do
       app.gadget_widget_path(gadget, widget).should == "/gadgets/{{gadget.to_param}}/widgets/{{to_param}}"
+    end
+
+    it "should return the path with a query string" do
+      app.gadget_path(real_gadget, :widget => widget).should == "/gadgets/some_gadget_id?widget={{to_param}}"
     end
   end
 end
