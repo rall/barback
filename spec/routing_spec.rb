@@ -4,8 +4,6 @@ module Testing
   class Application < Rails::Application; end
 end
 
-class WidgetsController < ActionController::Base; end
-
 class Widget
   include Barback
   attr_accessor :to_param, :id
@@ -23,7 +21,7 @@ end
 describe "generating urls for handlebars" do
   let(:widget) { Widget.handlebars_object }
   let(:gadget) { Gadget.handlebars_object("gadget") }
-  let(:real_gadget) { Gadget.new.tap { |g| g.to_param = "some_gadget_id" } }
+  let(:object) { Gadget.new.tap { |g| g.to_param = "some_object_id" } }
   let(:app) { ActionDispatch::Integration::Session.new(Rails.application) }
 
   context "and routes" do
@@ -53,7 +51,7 @@ describe "generating urls for handlebars" do
     end
 
     it "should return the path for a nested route when a child" do
-      app.gadget_widget_path(real_gadget, widget).should == "/gadgets/some_gadget_id/widgets/{{to_param}}"
+      app.gadget_widget_path(object, widget).should == "/gadgets/some_object_id/widgets/{{to_param}}"
     end
 
     it "should return the path for a nested route when a container" do
@@ -65,7 +63,7 @@ describe "generating urls for handlebars" do
     end
 
     it "should return the path with a handlebars query string" do
-      app.gadget_path(real_gadget, :widget => widget).should == "/gadgets/some_gadget_id?widget={{to_param}}"
+      app.gadget_path(object, :widget => widget).should == "/gadgets/some_object_id?widget={{to_param}}"
     end
 
     it "should return the handlebars path with a query string" do
