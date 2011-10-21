@@ -59,6 +59,23 @@ describe Barback do
   end
 
   context "an activerecord model" do
+    let(:sprocket) { Sprocket.handlebars_object }
+    let(:flange) { Flange.handlebars_object }
+
+    it "creates handlebars representations of properties" do
+      flange.foo.should == "{{foo}}"
+    end
+
+    context "one-to-many relations" do
+      it "creates handlebars collection" do
+        sprocket.flanges.should be_instance_of Array
+        sprocket.flanges.length.should == 1
+      end
+
+      it "creates a handlebars object with 'this' scope" do
+        sprocket.flanges.first.foo.should == "{{this.foo}}"
+      end
+    end
 
   end
 

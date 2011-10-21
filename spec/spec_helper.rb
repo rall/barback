@@ -30,3 +30,22 @@ class Gadget
   attr_accessor :id, :to_param
   def self.include_root_in_json?; true; end
 end
+
+ActiveRecord::Base.connection.execute("DROP TABLE IF EXISTS 'sprockets'")
+ActiveRecord::Base.connection.execute("DROP TABLE IF EXISTS 'flanges'")
+ActiveRecord::Base.connection.create_table(:sprockets) do |t|
+    t.string :foo, :bar
+end
+ActiveRecord::Base.connection.create_table(:flanges) do |t|
+    t.string :foo, :bar
+    t.integer :sprocket_id
+end
+
+class Sprocket < ActiveRecord::Base
+  has_many :flanges
+end
+
+class Flange < ActiveRecord::Base
+  belongs_to :sprocket
+end
+
